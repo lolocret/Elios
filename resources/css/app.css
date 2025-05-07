@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Animation de fondu et glissement pour les chapitres */
+.chapter {
+    opacity: 0;
+    transform: translateY(20px); /* Glissement vertical */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.chapter.visible {
+    opacity: 1;
+    transform: translateY(0); /* Retourne à sa position normale */
+}
+
+/* Animation des choix avec fade-in et glissement */
+.choice {
+    opacity: 0;
+    transform: translateX(-20px); /* Glissement horizontal */
+    transition: opacity 0.5s ease-in-out, transform 0.2s ease-in-out;
+    transition-delay: 0s; /* Pas de délai initial */
+}
+
+/* Classe visible pour chaque choix */
+.choice.visible {
+    opacity: 1;
+    transform: translateX(0); /* Retourne à sa position normale */
+}
+
+/* Espacement amélioré pour les boutons de choix */
+.choice {
+    padding: 12px 24px; /* Augmenter le padding pour des boutons plus espacés */
+    margin-bottom: 12px; /* Espacement entre les boutons */
+}
+
+/* Animation de survol des boutons de choix */
+.choice:hover {
+    transform: scale(1.05); /* Agrandissement léger */
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 8px rgba(217, 129, 255, 0.6); /* Effet de lumière autour du bouton */
+}
+
+/* Effet de particules lors du clic (ajouter une animation de clic sur les boutons) */
+.choice:active {
+    animation: click-animation 0.1s ease-out;
+}
+
+
+
+/* Parallax effect pour le fond */
+.bg-parallax {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: transform 0.2s ease;
+}
+
+.bg-parallax:hover {
+    transform: scale(1.05);
+
+  /* Applique un effet métallique au logo avec un survol */
+.logo-scintillant {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    height: 150px; /* Taille du logo */
+    width: auto;
+    transition: all 0.3s ease; /* Transition douce pour l'effet hover */
+    filter: brightness(0.9); /* Donne une brillance initiale pour le logo */
+}
+
+/* Effet métallique lors du survol */
+.logo-scintillant:hover {
+    filter: brightness(1.2) saturate(1.5) contrast(1.1); /* Augmente la brillance et contraste pour un effet métallique */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3); /* Création d'un effet lumineux autour du logo */
+    transform: scale(1.05); /* Agrandit légèrement le logo pour l'effet de zoom */
+}
+}
