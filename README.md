@@ -1,66 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Elios - Fiction Interactive
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
 
-## About Laravel
+**Elios** est un projet de fiction interactive, conçu pour vous faire vivre une expérience narrative unique. À travers un parcours où chaque choix influence l'histoire, vous plongez dans un récit immersif qui mêle réflexion, émotions et introspection.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Avec une interface moderne, fluide et une narration dynamique, chaque décision prise par l'utilisateur aura un impact sur le déroulement de l'histoire, vous permettant de vivre une aventure personnalisée.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Fonctionnalités
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Choix interactifs** : Les utilisateurs prennent des décisions à chaque étape qui influencent l'histoire.
+- **Interface dynamique** : Le design est pensé pour être immersif et réactif, avec des animations fluides.
+- **Historique des choix** : Suivi de toutes les décisions prises durant l'expérience.
+- **Multiplateforme** : Le projet est optimisé pour fonctionner sur tous les appareils modernes (mobile, tablette, desktop).
 
-## Learning Laravel
+## Technologies utilisées
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Frontend
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Vue.js** : Framework JavaScript pour construire l'application interactive.
+- **Tailwind CSS** : Framework CSS pour un design moderne et réactif.
+- **Axios** : Bibliothèque pour les requêtes HTTP et la gestion des API.
+- **Vite** : Outil de développement pour un build rapide et une expérience de développement fluide.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend
 
-## Laravel Sponsors
+- **Laravel** : Framework PHP pour gérer le backend et les API.
+- **MySQL (ou SQLite)** : Base de données pour stocker les informations relatives aux chapitres, choix et utilisateurs.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Installation
 
-### Premium Partners
+### Prérequis
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Assurez-vous d'avoir installé les éléments suivants sur votre machine :
 
-## Contributing
+- **Node.js** et **npm** (pour le frontend).
+- **PHP** et **Composer** (pour le backend).
+- **MySQL** ou **SQLite** pour la base de données.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Étapes d'installation
 
-## Code of Conduct
+1. **Clonez le dépôt**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone git@github.com:lolocret/Elios.git
+cd Elios
+Installation des dépendances pour le frontend
 
-## Security Vulnerabilities
+Naviguez dans le dossier frontend et installez les dépendances :
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+bash
+Copier
+cd frontend
+npm install
+Installation des dépendances pour le backend
 
-## License
+Naviguez dans le dossier backend et installez les dépendances :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bash
+Copier
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+Lancer les serveurs
+
+Frontend :
+
+bash
+Copier
+cd frontend
+npm run dev
+Backend :
+
+bash
+Copier
+cd backend
+php artisan serve
+URL d'accès
+Le frontend sera accessible à http://localhost:5173.
+
+Le backend sera accessible à http://localhost:8000.
+
+Structure du projet
+bash
+Copier
+Elios/
+│
+├── frontend/                   # Frontend Vue.js
+│   ├── src/
+│   │   ├── assets/             # Images, polices, etc.
+│   │   ├── components/         # Composants Vue.js
+│   │   ├── App.vue             # Composant principal
+│   │   ├── StoryReader.vue     # Composant pour la lecture de l'histoire
+│   │   ├── main.js             # Point d'entrée JavaScript
+│   ├── tailwind.config.js       # Configuration de Tailwind CSS
+│   └── package.json            # Dépendances du frontend
+│
+├── backend/                    # Backend Laravel
+│   ├── app/
+│   │   ├── Http/
+│   │   └── Models/
+│   ├── routes/
+│   │   └── api.php             # Routes API pour les histoires et chapitres
+│   ├── database/
+│   │   └── migrations/
+│   ├── .env                    # Configuration de l'environnement
+│   └── composer.json            # Dépendances du backend
+│
+└── README.md                   # Ce fichier
+Routes API
+Récupérer l'histoire
+L'API principale qui charge l'histoire et ses chapitres :
+
+http
+Copier
+GET /api/story/{id}
+Exemple : GET /api/story/1 retourne les données de l'histoire avec les chapitres et les choix.
+
+Structure de la réponse API
+L'API renverra un objet contenant l'histoire, les chapitres et les choix :
+
+json
+Copier
+{
+  "id": 1,
+  "title": "Elios",
+  "description": "Une expérience immersive et thérapeutique.",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Chapitre 1",
+      "content": "Description du chapitre...",
+      "choices": [
+        {
+          "id": 1,
+          "text": "Choisir d'analyser ton environnement",
+          "to_chapter_id": 2
+        },
+        {
+          "id": 2,
+          "text": "Choisir d'accéder à tes souvenirs",
+          "to_chapter_id": 3
+        }
+      ]
+    }
+  ]
+}
+Contribuer
+Les contributions sont les bienvenues ! Si tu souhaites ajouter des fonctionnalités, corriger des bugs ou améliorer l'expérience, n'hésite pas à créer une Pull Request.
+
+Fork le dépôt.
+
+Crée une branche pour ta fonctionnalité (git checkout -b feature/nouvelle-fonctionnalite).
+
+Fais tes modifications et commit (git commit -am 'Ajoute une nouvelle fonctionnalité').
+
+Push ta branche (git push origin feature/nouvelle-fonctionnalite).
+
+Crée une Pull Request.
+
+Auteurs
+Lorie Crettex - Développeur principal
+
+Licence
+Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
