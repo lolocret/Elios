@@ -15,6 +15,8 @@ class StoryController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+   
+
     public function index(): JsonResponse
     {
         $stories = Story::where('published', true)

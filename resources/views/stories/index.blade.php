@@ -14,10 +14,11 @@
                             {{ $story['title'] }} — {{ $story['description'] }}
                         </button>
                     </form>
-                @else
-                    <span style="opacity: 0.5;">{{ $story['title'] }} — {{ $story['description'] }}</span>
                 @endif
             </li>
         @endforeach
     </ul>
+
+    <!-- Point de montage pour Vue.js -->
+    <div id="vue-mount-point"></div>
 @endsection

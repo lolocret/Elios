@@ -5,7 +5,6 @@
 
     <!-- Carte immersive -->
     <div class="relative z-10 max-w-3xl bg-black/60 backdrop-blur-lg p-10 rounded-2xl shadow-2xl ring-1 ring-white/10 text-white animate-fade-in">
-      <!-- Affichage du titre du chapitre -->
       <h1 class="text-4xl font-extrabold text-pink-200 drop-shadow-lg mb-6 text-center">{{ currentChapter.title }}</h1>
       <p class="text-lg text-gray-100 mb-8 text-center">{{ currentChapter.content }}</p>
 
@@ -13,36 +12,7 @@
       <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="space-y-6">
         <h4 class="text-2xl font-semibold text-white mt-8 text-center">Que choisis-tu ?</h4>
         <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
-          <!-- Test simple pour voir si les choix sont correctement affichés -->
-          <p>{{ choice.text }}</p> <!-- Simple texte pour voir si les choix apparaissent -->
-          <a
-            @click.prevent="selectChoice(choice)"
-            class="block w-full text-left bg-white/10 hover:bg-pink-300/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10 choice"
-            :style="{
-              padding: '12px 24px',
-              marginBottom: '12px',
-              fontWeight: '600',
-              borderRadius: '0.75rem',
-              transition: 'all 0.3s ease',
-              backdropFilter: 'blur(8px)',
-              boxShadow: '0 0 5px rgba(255, 255, 255, 0.1)',
-              textDecoration: 'none',
-              display: 'block',
-              textAlign: 'left',
-            }"
-            @mouseover="
-              this.style.transform = 'scale(1.05)';
-              this.style.boxShadow = '0 0 8px rgba(217, 129, 255, 0.6)';
-              this.style.backgroundColor = 'rgba(251, 156, 240, 0.18)';
-              this.style.color = 'white';
-            "
-            @mouseout="
-              this.style.transform = 'scale(1)';
-              this.style.boxShadow = '0 0 5px rgba(255, 255, 255, 0.1)';
-              this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-              this.style.color = '';
-            "
-          >
+          <a @click.prevent="selectChoice(choice)" class="block w-full text-left bg-white/10 hover:bg-pink-300/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10 choice">
             {{ choice.text }}
           </a>
         </div>
@@ -73,7 +43,7 @@ export default {
   mounted() {
     // Vérification des données lorsque le composant est monté
     if (this.story && this.story.chapters && this.story.chapters.length > 0) {
-      this.currentChapter = this.story.chapters[0]; // Charger le premier chapitre
+      this.currentChapter = this.story.chapters.find(chapter => chapter.is_first === 1); // Charger le premier chapitre avec 'is_first'
       console.log('Chapitre courant chargé:', this.currentChapter);
     } else {
       console.error('Aucun chapitre trouvé ou données invalides');
@@ -83,10 +53,10 @@ export default {
     // Fonction pour sélectionner un choix dans un chapitre
     selectChoice(choice) {
       console.log('Choix sélectionné:', choice);
-      const nextChapter = this.story.chapters.find((chapter) => chapter.id === choice.to_chapter_id);
+      const nextChapter = this.story.chapters.find(chapter => chapter.id === choice.to_chapter_id);
       if (nextChapter) {
-        this.currentChapter = nextChapter; // Mettre à jour le chapitre courant
-        this.backgroundImage = nextChapter.background_image || this.backgroundImage; // Gérer l'image de fond spécifique au chapitre
+        this.currentChapter = nextChapter;
+        this.backgroundImage = nextChapter.background_image || this.backgroundImage;
         console.log('Chapitre mis à jour:', this.currentChapter);
       } else {
         console.error('Chapitre suivant non trouvé');
@@ -116,7 +86,7 @@ export default {
 }
 
 .choice {
-  background-color: rgba(255, 255, 255, 0.2); /* Juste pour tester */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .choice-button:hover {

@@ -1,46 +1,41 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
-
+import { createApp } from 'vue';
+import StoryReader from './StoryReader.vue';
 
 window.Alpine = Alpine;
 Alpine.start();
 
-
-
-
+// Monte Vue.js après que le DOM soit complètement chargé
 document.addEventListener('DOMContentLoaded', function () {
-    // Ajouter la classe 'visible' pour l'animation de fondu et glissement entre les chapitres
+    // Monte Vue.js sur #vue-mount-point
+    const mountPoint = document.querySelector('#vue-mount-point');
+    if (mountPoint) {
+        createApp(StoryReader, {
+            // Passer les données de l'histoire à Vue.js via les props
+            story: window.storyData,
+          }).mount('#vue-mount-point');
+    }
+
+    // Applique les animations après le montage de Vue.js
     const chapter = document.querySelector('.chapter');
-    chapter.classList.add('visible');
+    if (chapter) {
+        chapter.classList.add('visible');  // Ajouter la classe 'visible' pour l'animation de fondu
+    }
 
-    // Ajouter la classe 'visible' pour faire apparaître les choix progressivement
     const choices = document.querySelectorAll('.choice');
-
-    // Appliquer un délai progressif pour chaque choix
     choices.forEach((choice, index) => {
         setTimeout(() => {
-            choice.classList.add('visible');
-        }, index * 600); // Délai progressif de 200ms entre chaque choix
+            if (choice) {
+                choice.classList.add('visible');  // Ajouter la classe 'visible' pour faire apparaître les choix progressivement
+            }
+        }, index * 600); // Délai progressif de 600ms entre chaque choix
     });
-});
 
-
-setTimeout(function () {
     const logo = document.querySelector('.logo-scintillant');
     if (logo) {
-        logo.classList.add('new-class');
-    }
-}, 100);  // Attendre 100ms
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const logo = document.querySelector('.logo-scintillant');
-    console.log(logo);  // Vérifie si l'élément est trouvé dans la console
-
-    if (logo) {
-        logo.classList.add('new-class');  // Si l'élément est trouvé, ajoute une nouvelle classe
+        logo.classList.add('new-class');  // Ajouter une nouvelle classe à l'élément logo
     } else {
         console.log("L'élément logo-scintillant n'a pas été trouvé dans le DOM.");
     }
 });
-

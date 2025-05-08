@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/story/{id}', function ($id) {
         $story = Story::with('chapters.choices')->findOrFail($id);
-        return view('reflet.start', compact('story'));
+        return view('reflet.start', compact('story'));  // Passe les données à la vue Blade
     })->name('story.play');
 
     Route::get('/chapters/{id}', function ($id) {
