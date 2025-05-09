@@ -60,7 +60,7 @@ export default {
         this.backgroundImage = '/images/image3.png';
       } else {
         // Middle phase (choices available but not the end)
-        this.backgroundImage = '/images/image4.png';
+        this.backgroundImage = '/images/image3.png';
       }
     },
     isChoiceVisible(index) {

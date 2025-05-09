@@ -1,10 +1,9 @@
 <x-app-layout>
-        <!-- L'image de fond sera gérée par Vue.js -->
-            <!-- Le contenu sera géré par Vue.js -->
+
         </div>
     </div>
 
-    <!-- Injecter les données de l'histoire dans Vue.js -->
+    <!-- Injecte les données de l'histoire dans Vue.js -->
     <script>
         window.storyData = @json($story);  // Injecte les données de l'histoire depuis Blade
     </script>

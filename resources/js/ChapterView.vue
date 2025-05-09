@@ -12,7 +12,7 @@
       <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="space-y-6">
         <h4 class="text-2xl font-semibold text-white mt-8 text-center">Que choisis-tu ?</h4>
         <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
-          <a @click.prevent="selectChoice(choice)" class="block w-full text-left bg-white/10 hover:bg-pink-300/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10 choice">
+          <a @click.prevent="selectChoice(choice)">
             {{ choice.text }}
           </a>
         </div>
@@ -32,7 +32,6 @@ export default {
   data() {
     return {
       currentChapter: null, // Initialiser avec null
-      backgroundImage: '/images/image3.png', // Image de fond par défaut
     };
   },
   mounted() {
@@ -56,15 +55,7 @@ export default {
         this.currentChapter = nextChapter;
       }
     },
-    setBackgroundImage() {
-      if (this.currentChapter && this.currentChapter.is_last) {
-        // If it's the final chapter, change to image5
-        this.backgroundImage = '/images/image5.png';
-      } else {
-        // Default image for other chapters
-        this.backgroundImage = this.currentChapter.background_image || '/images/image3.png';
-      }
-    },
+   
   },
 };
 </script>
