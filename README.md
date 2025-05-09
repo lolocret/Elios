@@ -41,50 +41,36 @@ Assurez-vous d'avoir installé les éléments suivants sur votre machine :
 
 1. **Clonez le dépôt**
 
-```bash
+
 git clone git@github.com:lolocret/Elios.git
 cd Elios
-Installation des dépendances pour le frontend
 
-Naviguez dans le dossier frontend et installez les dépendances :
+Installation des dépendances pour le frontend :
 
-bash
-Copier
-cd frontend
 npm install
-Installation des dépendances pour le backend
 
-Naviguez dans le dossier backend et installez les dépendances :
+Installation des dépendances pour le backend :
 
-bash
-Copier
-cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
+
 Lancer les serveurs
 
 Frontend :
-
-bash
-Copier
-cd frontend
 npm run dev
-Backend :
 
-bash
-Copier
-cd backend
+Backend :
 php artisan serve
+
 URL d'accès
 Le frontend sera accessible à http://localhost:5173.
 
 Le backend sera accessible à http://localhost:8000.
 
 Structure du projet
-bash
-Copier
+
 Elios/
 │
 ├── frontend/                   # Frontend Vue.js
@@ -109,6 +95,7 @@ Elios/
 │   └── composer.json            # Dépendances du backend
 │
 └── README.md                   # Ce fichier
+
 Routes API
 Récupérer l'histoire
 L'API principale qui charge l'histoire et ses chapitres :
@@ -147,7 +134,7 @@ Copier
     }
   ]
 }
-Contribuer
+
 Les contributions sont les bienvenues ! Si tu souhaites ajouter des fonctionnalités, corriger des bugs ou améliorer l'expérience, n'hésite pas à créer une Pull Request.
 
 Fork le dépôt.
