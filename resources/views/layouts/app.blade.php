@@ -29,7 +29,7 @@
             @endisset
 
             <!-- Vue.js Mount Point -->
-            <div id="app"></div> <!-- Vue app will be mounted here -->
+            <div id="app"></div> 
 
             <!-- Page Content -->
             <main>
