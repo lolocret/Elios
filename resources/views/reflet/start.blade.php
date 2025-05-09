@@ -1,7 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
         <!-- L'image de fond sera gérée par Vue.js -->
-        <div id="vue-mount-point" class="relative z-10 max-w-3xl p-10 rounded-2xl shadow-2xl ring-1 ring-white/10 text-white animate-fade-in">
             <!-- Le contenu sera géré par Vue.js -->
         </div>
     </div>

@@ -20,13 +20,13 @@
 
             @foreach ($stories as $story)
                 <div class="rounded-3xl p-6 shadow-md border border-white/20 backdrop-blur-lg transition hover:scale-105 duration-300
-                            {{ $story['active'] ? 'bg-white/10 hover:ring-2 hover:ring-orange-300/50' : 'opacity-40 cursor-not-allowed bg-white/5' }}">
+                            {{ $story['active'] ? 'bg-white/10 hover:ring-2 hover:ring-pink-300/50' : 'opacity-40 cursor-not-allowed bg-white/5' }}">
                     <h3 class="text-2xl font-bold text-white mb-2">{{ $story['title'] }}</h3>
                     <p class="text-sm text-gray-200 mb-4">{{ $story['description'] }}</p>
 
                     @if ($story['active'])
                         <form method="GET" action="{{ route('story.play', $story['id']) }}">
-                            <button class="block w-full text-left bg-white/10 hover:bg-orange-400/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10">
+                            <button class="block w-full text-left bg-white/10 hover:bg-pink-400/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10">
                                 Commencer
                             </button>
                         </form>

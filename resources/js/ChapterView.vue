@@ -41,70 +41,77 @@ export default {
 };
 </script>
 
-<style scoped>
-.chapter-screen {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 8px;
-}
-/* Animation de fond avec transition */
-.bg-cover {
-  transition: background-image 1s ease-in-out, filter 0.5s ease-in-out;
-}
-
-/* Animation des choix avec transition progressive */
-.choice {
-  opacity: 0;
-  transform: translateX(-30px); /* Commence décalé à gauche */
-  transition: opacity 0.5s ease-out, transform 0.3s ease-out;
-}
-
-/* Lorsque les choix deviennent visibles */
-.choice.visible {
-  opacity: 1;
-  transform: translateX(0); /* Glissement vers sa position normale */
-}
-
-/* Animation sur hover pour l'effet de survol des choix */
-.choice:hover {
-  transform: scale(1.05); /* Agrandissement léger */
-  box-shadow: 0 0 8px rgba(217, 129, 255, 0.6); /* Effet de lumière autour du bouton */
-  background-color: rgba(251, 156, 240, 0.18); /* Légère modification du fond */
-}
-
-/* Animation de fade-in pour l'élément contenant le chapitre */
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out;
-}
-
-@keyframes fade-in {
-  from {
+<style scoped>/* Animation de fondu et glissement pour les chapitres */
+/* Animation de fondu et glissement pour les chapitres */
+.chapter {
     opacity: 0;
-    transform: translateY(20px); /* Glissement vertical pour l'effet d'apparition */
-  }
-  to {
+    transform: translateY(20px); /* Glissement vertical */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.chapter.visible {
     opacity: 1;
-    transform: translateY(0); /* Retour à la position normale */
-  }
+    transform: translateY(0); /* Retourne à sa position normale */
 }
 
-/* Transition de la carte immersive avec une légère animation */
-.relative {
-  transition: all 0.5s ease;
+/* Animation des choix avec fade-in et glissement */
+.choice {
+    opacity: 0;
+    transform: translateX(-20px); /* Glissement horizontal */
+    transition: opacity 0.5s ease-in-out, transform 0.2s ease-in-out;
+    transition-delay: 0s; /* Pas de délai initial */
 }
 
-.choice-btn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 12px 24px;
-  font-weight: 600;
-  margin: 10px 0;
-  border-radius: 0.75rem;
-  transition: 0.3s;
+/* Classe visible pour chaque choix */
+.choice.visible {
+    opacity: 1;
+    transform: translateX(0); /* Retourne à sa position normale */
 }
 
-.choice-btn:hover {
-  background-color: rgba(251, 156, 240, 0.3);
-  transform: scale(1.05);
+/* Animation de survol des boutons de choix */
+.choice:hover {
+    transform: scale(1.05); /* Agrandissement léger au survol */
+    box-shadow: 0 0 8px rgba(217, 129, 255, 0.6); /* Effet de lumière autour du bouton */
+    background-color: rgba(251, 156, 240, 0.18); /* Légère modification du fond */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Effet de particules lors du clic (ajouter une animation de clic sur les boutons) */
+.choice:active {
+    animation: click-animation 0.1s ease-out;
+}
+
+/* Parallax effect pour le fond */
+.bg-parallax {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: transform 0.2s ease;
+}
+
+.bg-parallax:hover {
+    transform: scale(1.05); /* Applique un léger zoom au fond */
+}
+
+/* Effet métallique pour le logo */
+.logo-scintillant {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    height: 150px; /* Taille du logo */
+    width: auto;
+    transition: all 0.3s ease; /* Transition douce pour l'effet hover */
+    filter: brightness(0.9); /* Donne une brillance initiale pour le logo */
+}
+
+/* Effet métallique lors du survol */
+.logo-scintillant:hover {
+    filter: brightness(1.2) saturate(1.5) contrast(1.1); /* Augmente la brillance et contraste pour un effet métallique */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3); /* Création d'un effet lumineux autour du logo */
+    transform: scale(1.05); /* Agrandit légèrement le logo pour l'effet de zoom */
 }
 </style>

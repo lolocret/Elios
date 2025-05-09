@@ -1,18 +1,17 @@
 <template>
   <div v-if="story && currentChapter" class="relative min-h-screen flex justify-center items-center">
     <!-- Image de fond conditionnelle -->
-    <div class="absolute inset-0 z-0 bg-cover bg-center object-cover" :style="{ backgroundImage: 'url(' + backgroundImage + ')', filter: 'brightness(0.4)' }"></div>
+    <div class="absolute inset-0 z-0 bg-cover bg-center object-cover" :style="{ backgroundImage: 'url(' + backgroundImage + ')', filter: 'brightness(0.4)', height: '100vh' }"></div>
 
     <!-- Carte immersive -->
-    <div class="relative z-10 max-w-3xl bg-black/60 backdrop-blur-lg p-10 rounded-2xl shadow-2xl ring-1 ring-white/10 text-white animate-fade-in">
+    <div class="relative z-10 max-w-3xl bg-white/10 backdrop-blur-lg p-10 rounded-2xl shadow-2xl ring-1 ring-white/10 text-white animate-fade-in">
       <h1 class="text-4xl font-extrabold text-pink-200 drop-shadow-lg mb-6 text-center">{{ currentChapter.title }}</h1>
       <p class="text-lg text-gray-100 mb-8 text-center">{{ currentChapter.content }}</p>
 
       <!-- Affichage des choix -->
       <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="space-y-6">
         <h4 class="text-2xl font-semibold text-white mt-8 text-center">Que choisis-tu ?</h4>
-        <div v-for="(choice, index) in currentChapter.choices" :key="choice.id" class="choice" 
-          :class="{'visible': isChoiceVisible(index)}">
+        <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
           <a @click.prevent="selectChoice(choice)" class="block w-full text-left bg-white/10 hover:bg-pink-300/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10 choice">
             {{ choice.text }}
           </a>
@@ -24,11 +23,9 @@
     </div>
   </div>
 
-  <!-- Message de chargement si l'histoire n'est pas encore chargée -->
-  <div v-else>
-    <p class="text-white text-center">Chargement de l'histoire...</p>
-  </div>
+
 </template>
+
 
 <script>
 export default {
