@@ -51,7 +51,6 @@ cd Elios
 Naviguez dans le dossier frontend et installez les dépendances :
 
 ```bash
-cd frontend
 npm install
 ```
 
@@ -60,7 +59,6 @@ npm install
 Naviguez dans le dossier backend et installez les dépendances :
 
 ```bash
-cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -87,14 +85,12 @@ php artisan migrate
 Frontend :
 
 ```bash
-cd frontend
 npm run dev
 ```
 
 Backend :
 
 ```bash
-cd backend
 php artisan serve
 ```
 
