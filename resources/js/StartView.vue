@@ -22,10 +22,7 @@
       <p v-else class="text-pink-100 italic text-center mt-8">Fin de cette branche du récit.</p>
     </div>
   </div>
-
-
 </template>
-
 
 <script>
 export default {
@@ -41,7 +38,7 @@ export default {
   mounted() {
     if (this.story && this.story.chapters && this.story.chapters.length > 0) {
       this.currentChapter = this.story.chapters.find(chapter => chapter.is_first === 1); // Charger le premier chapitre
-      this.backgroundImage = this.currentChapter.background_image || '/images/image3.png'; // Définir l'image de fond sans "public"
+      this.setBackgroundImage(); // Set the initial background image
     } else {
       console.error('Aucun chapitre trouvé ou données invalides');
     }
@@ -51,7 +48,19 @@ export default {
       const nextChapter = this.story.chapters.find((chapter) => chapter.id === choice.to_chapter_id);
       if (nextChapter) {
         this.currentChapter = nextChapter;
-        this.backgroundImage = nextChapter.background_image || '/images/image4.png'; // Gérer l'image de fond
+        this.setBackgroundImage(); // Update the background image after changing chapter
+      }
+    },
+    setBackgroundImage() {
+      if (!this.currentChapter.choices || this.currentChapter.choices.length === 0) {
+        // Final phase (no choices left)
+        this.backgroundImage = '/images/image5.png';
+      } else if (this.currentChapter.is_first) {
+        // First phase (start of the story)
+        this.backgroundImage = '/images/image3.png';
+      } else {
+        // Middle phase (choices available but not the end)
+        this.backgroundImage = '/images/image4.png';
       }
     },
     isChoiceVisible(index) {

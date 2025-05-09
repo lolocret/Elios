@@ -1,15 +1,25 @@
 <template>
-  <div v-if="currentChapter" class="chapter-screen">
-    <h2 class="text-3xl font-bold text-center text-pink-200">{{ currentChapter.title }}</h2>
-    <p class="text-lg text-center text-white">{{ currentChapter.content }}</p>
+  <div v-if="story && currentChapter" class="relative min-h-screen flex justify-center items-center">
+    <!-- Image de fond conditionnelle -->
+    <div class="absolute inset-0 z-0 bg-cover bg-center object-cover" :style="{ backgroundImage: 'url(' + backgroundImage + ')', filter: 'brightness(0.4)', height: '100vh' }"></div>
 
-    <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="choices mt-4">
-      <h3 class="text-2xl text-white text-center">Que choisis-tu ?</h3>
-      <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
-        <button @click="selectChoice(choice)" class="choice-btn">
-          {{ choice.text }}
-        </button>
+    <!-- Carte immersive -->
+    <div class="relative z-10 max-w-3xl bg-white/10 backdrop-blur-lg p-10 rounded-2xl shadow-2xl ring-1 ring-white/10 text-white animate-fade-in">
+      <h1 class="text-4xl font-extrabold text-pink-200 drop-shadow-lg mb-6 text-center">{{ currentChapter.title }}</h1>
+      <p class="text-lg text-gray-100 mb-8 text-center">{{ currentChapter.content }}</p>
+
+      <!-- Affichage des choix -->
+      <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="space-y-6">
+        <h4 class="text-2xl font-semibold text-white mt-8 text-center">Que choisis-tu ?</h4>
+        <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
+          <a @click.prevent="selectChoice(choice)" class="block w-full text-left bg-white/10 hover:bg-pink-300/20 hover:text-white font-semibold py-4 px-8 rounded-lg transition duration-300 backdrop-blur-md ring-1 ring-white/10 choice">
+            {{ choice.text }}
+          </a>
+        </div>
       </div>
+
+      <!-- Fin de branche -->
+      <p v-else class="text-pink-100 italic text-center mt-8">Fin de cette branche du récit.</p>
     </div>
   </div>
 </template>
@@ -17,29 +27,48 @@
 <script>
 export default {
   props: {
-    story: Object, // Données injectées de l'histoire depuis Blade
+    story: Object, // Récupérer les données de l'histoire via props
   },
   data() {
     return {
       currentChapter: null, // Initialiser avec null
+      backgroundImage: '/images/image3.png', // Image de fond par défaut
     };
   },
   mounted() {
-    // Charger le chapitre en fonction de l'ID du chapitre passé en paramètre
-    const chapterId = this.$route.params.chapterId;
-    this.currentChapter = this.story.chapters.find(chapter => chapter.id === chapterId);
+    if (this.story && this.story.chapters && this.story.chapters.length > 0) {
+      this.currentChapter = this.story.chapters.find(chapter => chapter.is_first === 1); // Charger le premier chapitre
+      this.setBackgroundImage(); // Set the initial background image
+    } else {
+      console.error('Aucun chapitre trouvé ou données invalides');
+    }
+  },
+  watch: {
+    // Watch for changes in the current chapter and update backgroundImage accordingly
+    currentChapter() {
+      this.setBackgroundImage();
+    }
   },
   methods: {
     selectChoice(choice) {
-      const nextChapter = this.story.chapters.find(chapter => chapter.id === choice.to_chapter_id);
+      const nextChapter = this.story.chapters.find((chapter) => chapter.id === choice.to_chapter_id);
       if (nextChapter) {
         this.currentChapter = nextChapter;
-        this.$router.push({ name: 'chapter', params: { chapterId: nextChapter.id } });
       }
-    }
-  }
+    },
+    setBackgroundImage() {
+      if (this.currentChapter && this.currentChapter.is_last) {
+        // If it's the final chapter, change to image5
+        this.backgroundImage = '/images/image5.png';
+      } else {
+        // Default image for other chapters
+        this.backgroundImage = this.currentChapter.background_image || '/images/image3.png';
+      }
+    },
+  },
 };
 </script>
+
 
 <style scoped>/* Animation de fondu et glissement pour les chapitres */
 /* Animation de fondu et glissement pour les chapitres */
@@ -55,11 +84,12 @@ export default {
 }
 
 /* Animation des choix avec fade-in et glissement */
-.choice {
-    opacity: 0;
-    transform: translateX(-20px); /* Glissement horizontal */
-    transition: opacity 0.5s ease-in-out, transform 0.2s ease-in-out;
-    transition-delay: 0s; /* Pas de délai initial */
+.choice-btn {
+    opacity: 1;
+    transform: translateX(0); /* Ensure the button starts in position */
+    transition: all 0.3s ease-in-out; /* Smooth transition for everything */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background for normal state */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); /* Light shadow for normal state */
 }
 
 /* Classe visible pour chaque choix */
@@ -69,18 +99,26 @@ export default {
 }
 
 /* Animation de survol des boutons de choix */
-.choice:hover {
-    transform: scale(1.05); /* Agrandissement léger au survol */
-    box-shadow: 0 0 8px rgba(217, 129, 255, 0.6); /* Effet de lumière autour du bouton */
-    background-color: rgba(251, 156, 240, 0.18); /* Légère modification du fond */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+.choice-btn:hover {
+    transform: scale(1.05); /* Enlarges the button */
+    box-shadow: 0 0 8px rgba(217, 129, 255, 0.6); /* Glow effect */
+    background-color: rgba(251, 156, 240, 0.18); /* Light background on hover */
+    color: white; /* Ensure text stays white */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Ensure smooth transition for all effects */
 }
 
 /* Effet de particules lors du clic (ajouter une animation de clic sur les boutons) */
-.choice:active {
+.choice-btn:active {
     animation: click-animation 0.1s ease-out;
 }
-
+@keyframes click-animation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5); /* Slight shrink on click */
+    }
+}
 /* Parallax effect pour le fond */
 .bg-parallax {
     position: fixed;
