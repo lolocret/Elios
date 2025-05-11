@@ -51,10 +51,7 @@ cd Elios
 Naviguez dans le dossier frontend et installez les dépendances :
 
 ```bash
-<<<<<<< HEAD
-=======
 cd frontend
->>>>>>> 7b27ba9 (maj readme)
 npm install
 ```
 
@@ -63,10 +60,7 @@ npm install
 Naviguez dans le dossier backend et installez les dépendances :
 
 ```bash
-<<<<<<< HEAD
-=======
 cd backend
->>>>>>> 7b27ba9 (maj readme)
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -93,20 +87,14 @@ php artisan migrate
 Frontend :
 
 ```bash
-<<<<<<< HEAD
-=======
 cd frontend
->>>>>>> 7b27ba9 (maj readme)
 npm run dev
 ```
 
 Backend :
 
 ```bash
-<<<<<<< HEAD
-=======
 cd backend
->>>>>>> 7b27ba9 (maj readme)
 php artisan serve
 ```
 
@@ -115,7 +103,6 @@ php artisan serve
 Le frontend sera accessible à [http://localhost:5173](http://localhost:5173).
 
 Le backend sera accessible à [http://localhost:8000](http://localhost:8000).
-
 
 ## Routes API
 
