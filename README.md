@@ -116,34 +116,6 @@ Le frontend sera accessible à [http://localhost:5173](http://localhost:5173).
 
 Le backend sera accessible à [http://localhost:8000](http://localhost:8000).
 
-## Structure du projet
-
-```
-Elios/
-│
-├── frontend/                   # Frontend Vue.js
-│   ├── src/
-│   │   ├── assets/             # Images, polices, etc.
-│   │   ├── components/         # Composants Vue.js
-│   │   ├── App.vue             # Composant principal
-│   │   ├── StoryReader.vue     # Composant pour la lecture de l'histoire
-│   │   ├── main.js             # Point d'entrée JavaScript
-│   ├── tailwind.config.js       # Configuration de Tailwind CSS
-│   └── package.json            # Dépendances du frontend
-│
-├── backend/                    # Backend Laravel
-│   ├── app/
-│   │   ├── Http/
-│   │   └── Models/
-│   ├── routes/
-│   │   └── api.php             # Routes API pour les histoires et chapitres
-│   ├── database/
-│   │   └── migrations/
-│   ├── .env                    # Configuration de l'environnement
-│   └── composer.json            # Dépendances du backend
-│
-└── README.md                   # Ce fichier
-```
 
 ## Routes API
 
