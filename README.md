@@ -43,6 +43,7 @@ Assurez-vous d'avoir installé les éléments suivants sur votre machine :
 
 ```bash
 git clone git@github.com:lolocret/Elios.git
+cd Elios
 ```
 
 2. **Installation des dépendances pour le frontend**
@@ -84,12 +85,14 @@ php artisan migrate
 Frontend :
 
 ```bash
+cd frontend
 npm run dev
 ```
 
 Backend :
 
 ```bash
+cd backend
 php artisan serve
 ```
 
