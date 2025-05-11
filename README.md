@@ -43,7 +43,6 @@ Assurez-vous d'avoir installé les éléments suivants sur votre machine :
 
 ```bash
 git clone git@github.com:lolocret/Elios.git
-cd Elios
 ```
 
 2. **Installation des dépendances pour le frontend**
@@ -51,7 +50,6 @@ cd Elios
 Naviguez dans le dossier frontend et installez les dépendances :
 
 ```bash
-cd frontend
 npm install
 ```
 
@@ -60,7 +58,6 @@ npm install
 Naviguez dans le dossier backend et installez les dépendances :
 
 ```bash
-cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -87,14 +84,12 @@ php artisan migrate
 Frontend :
 
 ```bash
-cd frontend
 npm run dev
 ```
 
 Backend :
 
 ```bash
-cd backend
 php artisan serve
 ```
 
@@ -113,8 +108,6 @@ L'API principale qui charge l'histoire et ses chapitres :
 ```http
 GET http://localhost:8000/api/story/reflet
 ```
-
-Exemple : `GET /api/story/1` retourne les données de l'histoire avec les chapitres et les choix.
 
 ### Structure de la réponse API
 
