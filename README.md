@@ -62,6 +62,7 @@ Naviguez dans le dossier backend et installez les dépendances :
 composer install
 cp .env.example .env
 php artisan key:generate
+php artisan db:seed
 ```
 
 4. **Création de la base de données**
