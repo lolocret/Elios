@@ -85,14 +85,12 @@ php artisan migrate
 Frontend :
 
 ```bash
-cd frontend
 npm run dev
 ```
 
 Backend :
 
 ```bash
-cd backend
 php artisan serve
 ```
 
