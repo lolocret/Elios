@@ -108,7 +108,7 @@ Le backend sera accessible à [http://localhost:8000](http://localhost:8000).
 L'API principale qui charge l'histoire et ses chapitres :
 
 ```http
-GET http://localhost:8000/api/story/reflet
+GET http://localhost:8000/api/v1/stories/1/chapters
 ```
 
 ### Structure de la réponse API

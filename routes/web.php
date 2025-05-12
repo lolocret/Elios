@@ -41,9 +41,6 @@ Route::prefix('api/v1')->group(function () {
 
     // Récupérer toutes les histoires publiées
     Route::get('/stories', [StoryController::class, 'index']);
-
-    // Récupérer une histoire spécifique
-    Route::get('/stories/{id}', [StoryController::class, 'show']);
     
     // Récupérer la liste des chapitres d'une histoire
     Route::get('/stories/{storyId}/chapters', [ChapterController::class, 'index']);
@@ -53,8 +50,6 @@ Route::prefix('api/v1')->group(function () {
 
     // Récupérer tous les choix d'un chapitre
     Route::get('/chapters/{chapterId}/choices', [ChoiceController::class, 'index']);
-
-    Route::middleware('auth:sanctum')->get('/stories/{id}/chapters', [ChapterController::class, 'index']);
 
     // Créer une histoire (authentifié)
     Route::middleware('auth:sanctum')->post('/stories', [StoryController::class, 'store']);
