@@ -11,7 +11,6 @@ Avec une interface moderne, fluide et une narration dynamique, chaque décision 
 * **Choix interactifs** : Les utilisateurs prennent des décisions à chaque étape qui influencent l'histoire.
 * **Interface dynamique** : Le design est pensé pour être immersif et réactif, avec des animations fluides.
 * **Historique des choix** : Suivi de toutes les décisions prises durant l'expérience.
-* **Multiplateforme** : Le projet est optimisé pour fonctionner sur tous les appareils modernes (mobile, tablette, desktop).
 
 ## Technologies utilisées
 
@@ -97,9 +96,7 @@ php artisan serve
 
 ### URL d'accès
 
-Le frontend sera accessible à [http://localhost:5173](http://localhost:5173).
-
-Le backend sera accessible à [http://localhost:8000](http://localhost:8000).
+Le projet sera accessible à [http://localhost:8000](http://localhost:8000).
 
 ## Routes API
 
@@ -109,37 +106,6 @@ L'API principale qui charge l'histoire et ses chapitres :
 
 ```http
 GET http://localhost:8000/api/v1/stories/1/chapters
-```
-
-### Structure de la réponse API
-
-L'API renverra un objet contenant l'histoire, les chapitres et les choix :
-
-```json
-{
-  "id": 1,
-  "title": "Elios",
-  "description": "Une expérience immersive et thérapeutique.",
-  "chapters": [
-    {
-      "id": 1,
-      "title": "Chapitre 1",
-      "content": "Description du chapitre...",
-      "choices": [
-        {
-          "id": 1,
-          "text": "Choisir d'analyser ton environnement",
-          "to_chapter_id": 2
-        },
-        {
-          "id": 2,
-          "text": "Choisir d'accéder à tes souvenirs",
-          "to_chapter_id": 3
-        }
-      ]
-    }
-  ]
-}
 ```
 
 ## Contribuer
