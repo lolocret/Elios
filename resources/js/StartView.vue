@@ -25,7 +25,7 @@
       <div class="mt-6 text-center">
         <button
   @click="restartStory"
-  class="mt-4 px-8 py-3 bg-pink-300 hover:bg-[#e5a2c3] hover:backdrop-blur-sm text-white rounded-lg transition duration-300"
+  class="mt-4 px-8 py-3 bg-[#e5a2c3] hover:bg-[#e5a2c3ba] hover:backdrop-blur-sm text-white rounded-lg transition duration-300"
 >
   Recommencer l'histoire
 </button>
@@ -33,7 +33,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
