@@ -27,38 +27,64 @@
 <script>
 export default {
   props: {
-    story: Object, // Récupérer les données de l'histoire via props
+    storyId: {
+      type: Number,
+      required: true
+    },
   },
   data() {
     return {
-      currentChapter: null, // Initialiser avec null
+      currentChapter: null,
+      choices: [],
+      backgroundImage: '/images/image3.png',
     };
   },
-  mounted() {
-    if (this.story && this.story.chapters && this.story.chapters.length > 0) {
-      this.currentChapter = this.story.chapters.find(chapter => chapter.is_first === 1); // Charger le premier chapitre
-      this.setBackgroundImage(); // Set the initial background image
-    } else {
-      console.error('Aucun chapitre trouvé ou données invalides');
-    }
-  },
-  watch: {
-    // Watch for changes in the current chapter and update backgroundImage accordingly
-    currentChapter() {
-      this.setBackgroundImage();
+  async mounted() {
+    try {
+      const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
+      const chaptersJson = await chaptersRes.json();
+      const chapters = chaptersJson.data;
+
+      const firstChapter = chapters.find(ch => ch.is_first === 1);
+      if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
+
+      await this.loadChapter(firstChapter.id);
+    } catch (error) {
+      console.error("Erreur lors du chargement de l'histoire :", error);
     }
   },
   methods: {
-    selectChoice(choice) {
-      const nextChapter = this.story.chapters.find((chapter) => chapter.id === choice.to_chapter_id);
-      if (nextChapter) {
-        this.currentChapter = nextChapter;
+    async loadChapter(chapterId) {
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/v1/chapters/${chapterId}`);
+        const json = await res.json();
+        this.currentChapter = json.data.chapter;
+        this.choices = json.data.choices || [];
+        this.setBackgroundImage();
+      } catch (error) {
+        console.error("Erreur lors du chargement du chapitre :", error);
       }
     },
-   
-  },
+    async selectChoice(choice) {
+      if (!choice?.to_chapter_id) return;
+      await this.loadChapter(choice.to_chapter_id);
+    },
+    setBackgroundImage() {
+      if (!this.choices.length) {
+        this.backgroundImage = '/images/image5.png'; // fin
+      } else if (this.currentChapter?.is_first) {
+        this.backgroundImage = '/images/image3.png'; // début
+      } else {
+        this.backgroundImage = '/images/image3.png'; // milieu
+      }
+      document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+    }
+  }
 };
 </script>
+
+
+
 
 
 <style scoped>/* Animation de fondu et glissement pour les chapitres */

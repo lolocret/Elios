@@ -23,49 +23,70 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   props: {
-    story: Object, // Récupérer les données de l'histoire via props
+    storyId: {
+      type: Number,
+      required: true
+    },
   },
   data() {
     return {
-      currentChapter: null, // Initialiser avec null
-      backgroundImage: '/images/image3.png', // Image de fond par défaut
+      story: null,
+      currentChapter: null,
+      backgroundImage: '/images/image3.png',
     };
   },
-  mounted() {
-    if (this.story && this.story.chapters && this.story.chapters.length > 0) {
-      this.currentChapter = this.story.chapters.find(chapter => chapter.is_first === 1); // Charger le premier chapitre
-      this.setBackgroundImage(); // Set the initial background image
-    } else {
-      console.error('Aucun chapitre trouvé ou données invalides');
+  async mounted() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/v1/stories/1/chapters');
+      if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
+      const data = await response.json();
+      this.story = data.data.find(s => s.id === this.storyId);
+
+      const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
+      const chaptersJson = await chaptersRes.json();
+      const chapters = chaptersJson.data;
+      const firstChapter = chapters.find(ch => ch.is_first === 1);
+      if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
+
+      await this.loadChapter(firstChapter.id);
+    } catch (error) {
+      console.error("Erreur pendant le chargement de la vue de départ :", error);
     }
   },
   methods: {
-    selectChoice(choice) {
-      const nextChapter = this.story.chapters.find((chapter) => chapter.id === choice.to_chapter_id);
-      if (nextChapter) {
-        this.currentChapter = nextChapter;
-        this.setBackgroundImage(); // Update the background image after changing chapter
+    async loadChapter(chapterId) {
+      try {
+        const chapterRes = await fetch(`http://127.0.0.1:8000/api/v1/chapters/${chapterId}`);
+        const chapterJson = await chapterRes.json();
+        this.currentChapter = {
+          ...chapterJson.data.chapter,
+          choices: chapterJson.data.choices || []
+        };
+        this.setBackgroundImage();
+      } catch (error) {
+        console.error("Erreur lors du chargement du chapitre :", error);
       }
+    },
+    async selectChoice(choice) {
+      if (!choice?.to_chapter_id) return;
+      await this.loadChapter(choice.to_chapter_id);
     },
     setBackgroundImage() {
-      if (!this.currentChapter.choices || this.currentChapter.choices.length === 0) {
-        // Final phase (no choices left)
-        this.backgroundImage = '/images/image5.png';
-      } else if (this.currentChapter.is_first) {
-        // First phase (start of the story)
-        this.backgroundImage = '/images/image3.png';
+      if (!this.currentChapter?.choices?.length) {
+        this.backgroundImage = '/images/image5.png'; // Fin
+      } else if (this.currentChapter?.is_first) {
+        this.backgroundImage = '/images/image3.png'; // Début
       } else {
-        // Middle phase (choices available but not the end)
-        this.backgroundImage = '/images/image3.png';
+        this.backgroundImage = '/images/image3.png'; // Milieu
       }
+      document.body.style.backgroundImage = `url(${this.backgroundImage})`;
     },
     isChoiceVisible(index) {
-      return index <= this.currentChapter.choices.length; // Si le choix est dans les limites de la liste
-    },
-  },
+      return this.currentChapter?.choices && index < this.currentChapter.choices.length;
+    }
+  }
 };
 </script>

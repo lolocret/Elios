@@ -11,7 +11,7 @@ window.Alpine = Alpine;
 Alpine.start();
 
 const app = createApp(StartView, {
-    story: window.storyData, // Passer l'objet story à Vue
+    storyId: window.storyData.id, // Passer l'objet story à Vue
   });
   
   app.mount('#app');
