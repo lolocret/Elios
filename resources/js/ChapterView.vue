@@ -83,10 +83,6 @@ export default {
 };
 </script>
 
-
-
-
-
 <style scoped>/* Animation de fondu et glissement pour les chapitres */
 /* Animation de fondu et glissement pour les chapitres */
 .chapter {
