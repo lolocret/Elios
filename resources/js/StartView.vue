@@ -20,9 +20,20 @@
 
       <!-- Fin de branche -->
       <p v-else class="text-pink-100 italic text-center mt-8">Fin de cette branche du récit.</p>
+
+      <!-- Bouton pour recommencer l'histoire -->
+      <div class="mt-6 text-center">
+        <button
+  @click="restartStory"
+  class="mt-4 px-8 py-3 bg-pink-300 hover:bg-[#e5a2c3] hover:backdrop-blur-sm text-white rounded-lg transition duration-300"
+>
+  Recommencer l'histoire
+</button>
+    </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -103,6 +114,15 @@ export default {
     },
     isChoiceVisible(index) {
       return this.currentChapter?.choices && index < this.currentChapter.choices.length;
+    },
+
+    // Méthode pour recommencer l'histoire
+    restartStory() {
+      // Effacer la progression du localStorage
+      localStorage.removeItem(`story-${this.storyId}-progress`);
+
+      // Recharger le premier chapitre
+      this.loadChapter(this.storyId);
     }
   }
 };
