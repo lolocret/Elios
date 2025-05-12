@@ -23,7 +23,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   props: {
@@ -40,17 +39,23 @@ export default {
     };
   },
   async mounted() {
-    try {
-      const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
-      const chaptersJson = await chaptersRes.json();
-      const chapters = chaptersJson.data;
+    // Reprendre la progression si un chapitre est sauvegardé
+    const savedChapterId = localStorage.getItem('savedChapterId');
+    if (savedChapterId) {
+      await this.loadChapter(savedChapterId); // Charger le chapitre sauvegardé
+    } else {
+      try {
+        const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
+        const chaptersJson = await chaptersRes.json();
+        const chapters = chaptersJson.data;
 
-      const firstChapter = chapters.find(ch => ch.is_first === 1);
-      if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
+        const firstChapter = chapters.find(ch => ch.is_first === 1);
+        if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
 
-      await this.loadChapter(firstChapter.id);
-    } catch (error) {
-      console.error("Erreur lors du chargement de l'histoire :", error);
+        await this.loadChapter(firstChapter.id);
+      } catch (error) {
+        console.error("Erreur lors du chargement de l'histoire :", error);
+      }
     }
   },
   methods: {
@@ -61,6 +66,9 @@ export default {
         this.currentChapter = json.data.chapter;
         this.choices = json.data.choices || [];
         this.setBackgroundImage();
+
+        // Sauvegarder la progression dans localStorage
+        localStorage.setItem('savedChapterId', chapterId);
       } catch (error) {
         console.error("Erreur lors du chargement du chapitre :", error);
       }
@@ -82,6 +90,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>/* Animation de fondu et glissement pour les chapitres */
 /* Animation de fondu et glissement pour les chapitres */

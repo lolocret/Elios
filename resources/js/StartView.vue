@@ -41,18 +41,28 @@ export default {
   },
   async mounted() {
     try {
+      // Charger l'histoire
       const response = await fetch('http://127.0.0.1:8000/api/v1/stories/1/chapters');
       if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
       const data = await response.json();
       this.story = data.data.find(s => s.id === this.storyId);
 
+      // Charger les chapitres
       const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
       const chaptersJson = await chaptersRes.json();
       const chapters = chaptersJson.data;
-      const firstChapter = chapters.find(ch => ch.is_first === 1);
-      if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
 
-      await this.loadChapter(firstChapter.id);
+      // Vérifier si une progression est sauvegardée dans le localStorage
+      const savedChapterId = localStorage.getItem(`story-${this.storyId}-progress`);
+      if (savedChapterId) {
+        // Si une progression est trouvée, charger ce chapitre
+        await this.loadChapter(savedChapterId);
+      } else {
+        // Sinon, charger le premier chapitre
+        const firstChapter = chapters.find(ch => ch.is_first === 1);
+        if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
+        await this.loadChapter(firstChapter.id);
+      }
     } catch (error) {
       console.error("Erreur pendant le chargement de la vue de départ :", error);
     }
@@ -60,6 +70,7 @@ export default {
   methods: {
     async loadChapter(chapterId) {
       try {
+        // Charger le chapitre depuis l'API
         const chapterRes = await fetch(`http://127.0.0.1:8000/api/v1/chapters/${chapterId}`);
         const chapterJson = await chapterRes.json();
         this.currentChapter = {
@@ -73,6 +84,11 @@ export default {
     },
     async selectChoice(choice) {
       if (!choice?.to_chapter_id) return;
+
+      // Sauvegarder l'ID du chapitre sélectionné dans le localStorage
+      localStorage.setItem(`story-${this.storyId}-progress`, choice.to_chapter_id);
+
+      // Charger le chapitre suivant
       await this.loadChapter(choice.to_chapter_id);
     },
     setBackgroundImage() {
