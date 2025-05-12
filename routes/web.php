@@ -34,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
+
+
 // Routes API versionnées exposées via le routeur
 Route::prefix('api/v1')->group(function () {
 
@@ -43,14 +45,16 @@ Route::prefix('api/v1')->group(function () {
     // Récupérer une histoire spécifique
     Route::get('/stories/{id}', [StoryController::class, 'show']);
     
-    // Récupérer la liste des chapitres d'une histoire (authentifié)
-    Route::middleware('auth:sanctum')->get('/stories/{storyId}/chapters', [ChapterController::class, 'index']);
+    // Récupérer la liste des chapitres d'une histoire
+    Route::get('/stories/{storyId}/chapters', [ChapterController::class, 'index']);
 
     // Récupérer un chapitre spécifique
     Route::get('/chapters/{id}', [ChapterController::class, 'show']);
 
     // Récupérer tous les choix d'un chapitre
     Route::get('/chapters/{chapterId}/choices', [ChoiceController::class, 'index']);
+
+    Route::middleware('auth:sanctum')->get('/stories/{id}/chapters', [ChapterController::class, 'index']);
 
     // Créer une histoire (authentifié)
     Route::middleware('auth:sanctum')->post('/stories', [StoryController::class, 'store']);
@@ -79,5 +83,9 @@ Route::prefix('api/v1')->group(function () {
     // Supprimer un choix (authentifié)
     Route::middleware('auth:sanctum')->delete('/choices/{id}', [ChoiceController::class, 'destroy']);
 });
+
+
+
+
 
 require __DIR__.'/auth.php';

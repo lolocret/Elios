@@ -25,10 +25,8 @@ class ChapterController extends Controller
         $chapter = Chapter::with('choices.toChapter:id,title,is_ending')
             ->findOrFail($id);
         
-        // Si le chapitre appartient à une histoire non publiée, vérifier l'autorisation
-        if (!$chapter->story->published) {
-            $this->authorize('view', $chapter);
-        }
+       
+    
         
         return response()->json([
             'status' => 'success',
@@ -64,10 +62,7 @@ class ChapterController extends Controller
     {
         $story = Story::findOrFail($storyId);
         
-        // Si l'histoire n'est pas publiée, vérifier l'autorisation
-        if (!$story->published) {
-            $this->authorize('viewAny', [Chapter::class, $story]);
-        }
+    
         
         $chapters = $story->chapters()->get();
         
@@ -88,8 +83,7 @@ class ChapterController extends Controller
     {
         $story = Story::findOrFail($storyId);
         
-        // Vérifier que l'utilisateur est autorisé à ajouter un chapitre
-        $this->authorize('create', [Chapter::class, $story]);
+
         
         $data = $request->validated();
         
@@ -120,9 +114,6 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::findOrFail($id);
         
-        // Vérifier que l'utilisateur est autorisé à modifier ce chapitre
-        $this->authorize('update', $chapter);
-        
         $data = $request->validated();
         
         // Si ce chapitre est défini comme premier, désactiver les autres premiers chapitres
@@ -150,8 +141,6 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::findOrFail($id);
         
-        // Vérifier que l'utilisateur est autorisé à supprimer ce chapitre
-        $this->authorize('delete', $chapter);
         
         $chapter->delete();
         
