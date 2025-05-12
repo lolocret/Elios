@@ -1,16 +1,19 @@
 <?php
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Story;
+use App\Models\Choice;
 use App\Http\Requests\ChapterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;  // Ajout de l'importation correcte du trait
 
 class ChapterController extends Controller
 {
+    use AuthorizesRequests;  // Utilisation du trait pour autorisations
+
     /**
      * Afficher un chapitre spécifique avec ses choix.
      *

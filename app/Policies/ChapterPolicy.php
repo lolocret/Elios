@@ -1,33 +1,20 @@
+<?php
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Story;
 use App\Models\Chapter;
 
 class ChapterPolicy
 {
-    public function view(User $user, Chapter $chapter): bool
+    public function view(User $user, Chapter $chapter)
     {
-        return $chapter->story->user_id === $user->id;
+        // Vérifier si l'histoire du chapitre est publiée
+        return $chapter->story->published || $user->id === $chapter->story->user_id;
     }
 
-    public function viewAny(User $user, Story $story): bool
+    public function update(User $user, Chapter $chapter)
     {
-        return $story->user_id === $user->id;
-    }
-
-    public function create(User $user, Story $story): bool
-    {
-        return $story->user_id === $user->id;
-    }
-
-    public function update(User $user, Chapter $chapter): bool
-    {
-        return $chapter->story->user_id === $user->id;
-    }
-
-    public function delete(User $user, Chapter $chapter): bool
-    {
-        return $chapter->story->user_id === $user->id;
+        // Seul l'auteur peut modifier le chapitre
+        return $user->id === $chapter->story->user_id;
     }
 }

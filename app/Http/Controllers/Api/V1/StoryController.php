@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class StoryController extends Controller
 {
+    
     /**
      * Afficher la liste de toutes les histoires publiées.
      *

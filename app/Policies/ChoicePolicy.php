@@ -1,3 +1,4 @@
+<?php
 namespace App\Policies;
 
 use App\Models\User;
@@ -5,13 +6,9 @@ use App\Models\Choice;
 
 class ChoicePolicy
 {
-    public function update(User $user, Choice $choice): bool
+    public function update(User $user, Choice $choice)
     {
-        return $choice->fromChapter->story->user_id === $user->id;
-    }
-
-    public function delete(User $user, Choice $choice): bool
-    {
-        return $choice->fromChapter->story->user_id === $user->id;
+        // Logique pour vérifier si l'utilisateur peut modifier un choix
+        return $user->id === $choice->chapter->story->user_id;
     }
 }
