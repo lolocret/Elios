@@ -15,22 +15,20 @@
 
 .bg-parallax:hover {
     transform: scale(1.05);
-
+}
   /* Applique un effet métallique au logo avec un survol */
 .logo-scintillant {
     position: relative;
     display: inline-block;
     z-index: 1;
-    height: 150px; /* Taille du logo */
+    height: 120px; /* Taille du logo */
     width: auto;
     transition: all 0.3s ease; /* Transition douce pour l'effet hover */
-    filter: brightness(0.9); /* Donne une brillance initiale pour le logo */
+    filter: brightness(1); /* Donne une brillance initiale pour le logo */
 }
 
 /* Effet métallique lors du survol */
 .logo-scintillant:hover {
-    filter: brightness(1.2) saturate(1.5) contrast(1.1); /* Augmente la brillance et contraste pour un effet métallique */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3); /* Création d'un effet lumineux autour du logo */
+    filter: brightness(1.1) saturate(1.1) contrast(1.1); /* Augmente la brillance et contraste pour un effet métallique */
     transform: scale(1.05); /* Agrandit légèrement le logo pour l'effet de zoom */
-}
 }

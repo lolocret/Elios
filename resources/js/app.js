@@ -1,3 +1,11 @@
+//Ce fichier initialise Alpine.js puis crée l’application Vue. 
+// Il importe les vues StartView et ChapterView. 
+// Il crée un tableau de routes (/story/:id et /chapter/:id) et un router vue-router.
+// Le router est le système qui permet de gérer la navigation 
+// entre différentes vues/pages dans une application en JavaScript
+//  sans recharger la page.
+// Lorsque le DOM est prêt, l’application est montée sur l’élément #vue-mount-point si celui‑ci existe.
+
 import './bootstrap';
 import Alpine from 'alpinejs';
 import { createApp } from 'vue';

@@ -12,7 +12,8 @@
       <div v-if="currentChapter.choices && currentChapter.choices.length > 0" class="space-y-6">
         <h4 class="text-2xl font-semibold text-white mt-8 text-center">Que choisis-tu ?</h4>
         <div v-for="choice in currentChapter.choices" :key="choice.id" class="choice">
-          <a @click.prevent="selectChoice(choice)">
+          <a @click.prevent="selectChoice(choice)">  
+            <!-- déclenche le passage au chapitre suivant sans recharger la page. -->
             {{ choice.text }}
           </a>
         </div>
@@ -24,6 +25,7 @@
   </div>
 </template>
 <script>
+
 export default {
   props: {
     storyId: {
@@ -45,10 +47,11 @@ export default {
       await this.loadChapter(savedChapterId); // Charger le chapitre sauvegardé
     } else {
       try {
+        // On récupère la liste des chapitres de l’histoire.
         const chaptersRes = await fetch(`http://127.0.0.1:8000/api/v1/stories/1/chapters`);
         const chaptersJson = await chaptersRes.json();
         const chapters = chaptersJson.data;
-
+       // Si c’est la première fois, on affiche le chapitre d’intro.
         const firstChapter = chapters.find(ch => ch.is_first === 1);
         if (!firstChapter) throw new Error('Aucun chapitre initial trouvé');
 
@@ -61,6 +64,7 @@ export default {
   methods: {
     async loadChapter(chapterId) {
       try {
+        //On récupère un chapitre et ses choix associés
         const res = await fetch(`http://127.0.0.1:8000/api/v1/chapters/${chapterId}`);
         const json = await res.json();
         this.currentChapter = json.data.chapter;
@@ -74,6 +78,7 @@ export default {
       }
     },
     async selectChoice(choice) {
+      //Quand on clique sur un choix, on charge le chapitre cible.
       if (!choice?.to_chapter_id) return;
       await this.loadChapter(choice.to_chapter_id);
     },

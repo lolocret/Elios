@@ -1,4 +1,27 @@
+<!-- //C’est la page d’accueil d’une histoire.
+
+Données : story, currentChapter, backgroundImage.
+
+Montage (mounted) : récupère la liste des chapitres, vérifie si 
+un chapitre est sauvegardé dans localStorage et charge soit ce chapitre, 
+soit le premier de l’histoire.
+
+Méthodes;
+
+loadChapter(chapterId) : récupère le chapitre via l’API puis met à jour 
+currentChapter et l’image de fond.
+
+selectChoice(choice) : sauvegarde la progression et charge le 
+chapitre ciblé par le choix.
+
+setBackgroundImage() : change l’image de fond selon que l’on 
+soit au début, au milieu ou à la fin.
+
+restartStory() : réinitialise la progression 
+(appelle loadChapter(this.storyId), ce qui vise le premier chapitre). -->
+
 <template>
+  <!--Le contenu ne s’affiche que si l’histoire (story) et le chapitre en cours (currentChapter) sont chargés. -->
   <div v-if="story && currentChapter" class="relative min-h-screen flex justify-center items-center">
     <!-- Image de fond conditionnelle -->
     <div class="absolute inset-0 z-0 bg-cover bg-center object-cover" :style="{ backgroundImage: 'url(' + backgroundImage + ')', filter: 'brightness(0.4)', height: '100vh' }"></div>
@@ -36,12 +59,18 @@
 
 <script>
 export default {
+  //Le composant reçoit un storyId depuis Laravel 
+  // (injection Blade), pour savoir quelle histoire charger.
   props: {
     storyId: {
       type: Number,
       required: true
     },
   },
+  //  Initialise les variables :
+  // story : l’histoire complète (titre, description…)
+  // currentChapter : le chapitre actuel
+  // backgroundImage : image dynamique affichée en fond
   data() {
     return {
       story: null,
@@ -49,7 +78,9 @@ export default {
       backgroundImage: '/images/image3.png',
     };
   },
+
   async mounted() {
+    // Cette méthode est appelée lorsque le composant est monté
     try {
       // Charger l'histoire
       const response = await fetch('http://127.0.0.1:8000/api/v1/stories/1/chapters');
@@ -63,6 +94,9 @@ export default {
       const chapters = chaptersJson.data;
 
       // Vérifier si une progression est sauvegardée dans le localStorage
+      // qui est un mécanisme de stockage intégré dans tous 
+      // les navigateurs web qui permet de sauvegarder des données côté client,
+      //  directement dans le navigateur de l'utilisateur.
       const savedChapterId = localStorage.getItem(`story-${this.storyId}-progress`);
       if (savedChapterId) {
         // Si une progression est trouvée, charger ce chapitre
